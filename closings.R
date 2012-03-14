@@ -4,7 +4,10 @@ library(maptools)
 gpclibPermit()
 library(raster)
 
-# load data
+# presaved data
+#load("data.RData")
+
+# load stores
 data <- readLines("closings-schlecker.txt")
 
 # extract cities and streets
@@ -77,7 +80,12 @@ save(yahoo_df, google_df, file = "data.RData")
 
 
 # load German map
-gadm <- getData('GADM', country="DE", level=1)
+
+#getData does not work always
+#gadm <- getData('GADM', country="DEU", level=1)
+
+load("DEU_adm1.RData")
+
 gadm_2 <- fortify(gadm, "NAME_1")
 
 # plot
@@ -85,7 +93,7 @@ plot <- ggplot(gadm_2, aes(long, lat)) + geom_path(aes(group = group), colour = 
 plot <- plot + geom_point(data = google_df, aes(x = long, y = lat), colour = "#0c367b", alpha = 0.75, size = 2)
 plot <- plot + coord_map()
 plot <- plot + theme_bw() + scale_x_continuous(breaks = NA) + scale_y_continuous(breaks = NA) + labs(x = NULL, y = NULL)
-plot <- plot + opts(title = "Closing Schlecker stores", plot.title = theme_text(size = 14, face = "bold"))
+plot <- plot + opts(title = "betroffene Schleckerfilialen", plot.title = theme_text(size = 14, face = "bold"))
 plot
 
 pdf("schlecker_closing.pdf", width = 6, height = 8)
