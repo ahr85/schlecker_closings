@@ -5,15 +5,16 @@ gpclibPermit()
 library(raster)
 
 # load data
-data <- readLines("schliessungen-schlecker_neu.txt")
+data <- readLines("closings-schlecker.txt")
 
 # extract cities and streets
 city <- data[seq(1,6028,3)]
 street <- substr(data[seq(2,6029,3)], 2, 100)
 
 # Yahoo geocoding - 468 NAs
+# you must register a project under https://developer.apps.yahoo.com/projects and enter the appid in the query.
 for (i in 1:length(city)) {
-  url <- paste("http://where.yahooapis.com/geocode?q=", street[i], ", ", city[i], "&appid=ClTAQy7a", sep = "")
+  url <- paste("http://where.yahooapis.com/geocode?q=", street[i], ", ", city[i], "&appid=[projectid]", sep = "")
   #  url <- URLencode(url)
   doc <- xmlTreeParse(url, useInternal=TRUE)
   top <- xmlRoot(doc)
