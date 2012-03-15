@@ -44,9 +44,9 @@ for (i in 1:length(city)) {
 yahoo_df <- df
 
 
-# Google geocoding - 77 NAs
+# Google geocoding - 71 NAs
 for (i in 1:length(city)) {
-  url <- paste("http://maps.googleapis.com/maps/api/geocode/xml?address=", street[i], ", ", city[i], "&sensor=false", sep = "")
+  url <- paste("http://maps.googleapis.com/maps/api/geocode/xml?address=", street[i], ", ", city[i], "&sensor=false&language=de", sep = "")
   #  url <- URLencode(url)
   doc <- xmlTreeParse(url, useInternal=TRUE)
   top <- xmlRoot(doc)
